@@ -18,7 +18,6 @@ namespace StateMountedSambaShare
             //    .WithWorkingDirectory("work/dir/path")
                 .WithStandardOutputPipe(PipeTarget.ToStringBuilder(stdOutBuffer))
                 .WithStandardErrorPipe(PipeTarget.ToStringBuilder(stdErrBuffer))
-
                 .ExecuteBufferedAsync();
 
             // Contains stdOut/stdErr buffered in-memory as string
@@ -28,15 +27,15 @@ namespace StateMountedSambaShare
              if (stdOut.Contains("")) {
                 Console.WriteLine("We found your mounted samba share!");
 
-                //Reboot the server
-                var reboot = await Cli.Wrap("sudo")
-                .WithArguments("reboot")
-                .ExecuteBufferedAsync();
             }
             else
             {
                 Console.WriteLine("There is no mounted samba share.");
 
+                //Reboot the server
+                var reboot = await Cli.Wrap("sudo")
+                .WithArguments("reboot")
+                .ExecuteBufferedAsync();
             }            
 
         }
