@@ -27,6 +27,11 @@ namespace StateMountedSambaShare
 
              if (stdOut.Contains("")) {
                 Console.WriteLine("We found your mounted samba share!");
+
+                //Reboot the server
+                var reboot = await Cli.Wrap("sudo")
+                .WithArguments("reboot")
+                .ExecuteBufferedAsync();
             }
             else
             {
