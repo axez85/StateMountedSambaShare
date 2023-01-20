@@ -20,11 +20,18 @@ namespace StateMountedSambaShare
                 .WithStandardErrorPipe(PipeTarget.ToStringBuilder(stdErrBuffer))
                 .ExecuteBufferedAsync();
 
+            // Result contains:
+            // -- result.ExitCode        (int)
+            // -- result.StartTime       (DateTimeOffset)
+            // -- result.ExitTime        (DateTimeOffset)
+            // -- result.RunTime         (TimeSpan)
+
             // Contains stdOut/stdErr buffered in-memory as string
             var stdOut = stdOutBuffer.ToString();
             var stdErr = stdErrBuffer.ToString();
 
-             if (stdOut.Contains("")) {
+            // Replace white url to mouned shares
+             if (stdOut.Contains("/mnt/")) {
                 Console.WriteLine("We found your mounted samba share!");
 
             }
